@@ -1,0 +1,63 @@
+<div class="list row">
+  <div class="col-md-8">
+
+    <!-- <input type="file" name="image" ng2FileSelect [uploader]="uploader" accept="image/csv" />
+    <button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+      Upload
+    </button> -->
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Search by Model" [(ngModel)]="model" />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="searchByModel()">
+          Search By Model
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>Automobiles List</h4>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let car of cars; let i = index" [class.active]="i == currentIndex"
+        (click)="setActiveCar(car, i)">
+        {{ car.vin }}
+      </li>
+    </ul>
+
+
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentCar">
+      <h4>Car</h4>
+
+      <div>
+        <label><strong>First Name</strong></label>
+        {{ currentCar.first_name }}
+      </div>
+      <div>
+        <label><strong>Last Name</strong></label>
+        {{ currentCar.last_make }}
+      </div>
+      <div>
+        <label><strong>Model:</strong></label>
+        {{ currentCar.car_model }}
+      </div>
+      <div>
+        <label><strong>Car Make:</strong></label>
+        {{ currentCar.car_make }}
+      </div>
+      <!-- <div>
+        <label><strong>Status:</strong></label>
+        {{ currentTutorial.published ? "Published" : "Pending" }}
+      </div> -->
+
+      <a class="badge badge-warning" routerLink="/cars/{{ currentCar.id }}">
+        Edit
+      </a>
+    </div>
+
+    <div *ngIf="!currentCar">
+      <br />
+      <p>Please click on a Car Item...</p>
+    </div>
+  </div>
+</div>
