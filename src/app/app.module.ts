@@ -5,24 +5,36 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CarDetailsComponent } from './components/tutorial-details/car-details.component';
-import { CarsListComponent } from './components/tutorials-list/car-list.component';
-import { FileSelectDirective } from 'ng2-file-upload';
+
+import { GraphQLModule } from './graphql.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DataService } from './services/data.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { AddCarComponent } from './components/add-car/add-car.component';
+import { CarDetailsComponent } from './components/car-details/car-details.component';
+import { CarsListComponent } from './components/cars-list/cars-list.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    FileSelectDirective,
+    AddCarComponent,
     CarDetailsComponent,
-    CarsListComponent
+    CarsListComponent,
+ 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    GraphQLModule,
+    NgbModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [ DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

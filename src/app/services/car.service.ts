@@ -1,40 +1,43 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Car } from '../models/car.model';
+import { Apollo } from 'apollo-angular';
 
-const baseUrl = 'http://localhost:4000/cars';
+const baseUrl = 'http://localhost:8080/api/cars';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private apollo: Apollo) { }
 
-  getAll() {
-    return this.http.get(baseUrl);
+  getAll(): Observable<Car[]> {
+    return this.http.get<Car[]>(baseUrl);
   }
 
-  get(id) {
+  get(id: any): Observable<Car> {
     return this.http.get(`${baseUrl}/${id}`);
   }
 
-  create(data) {
+  create(data: any): Observable<any> {
     return this.http.post(baseUrl, data);
   }
 
-  update(id, data) {
-    return this.http.patch(`${baseUrl}/${id}`, data);
+  update(id: any, data: any): Observable<any> {
+    return this.http.put(`${baseUrl}/${id}`, data);
   }
 
-  delete(id) {
+  delete(id: any): Observable<any> {
     return this.http.delete(`${baseUrl}/${id}`);
   }
 
-  deleteAll() {
+  deleteAll(): Observable<any> {
     return this.http.delete(baseUrl);
   }
 
-  findByTitle(title) {
-    return this.http.get(`${baseUrl}?title=${title}`);
+  findByTitle(title: any): Observable<Car[]> {
+    return this.http.get<Car[]>(`${baseUrl}?title=${title}`);
   }
 }

@@ -1,0 +1,95 @@
+<div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by title"
+        [(ngModel)]="title"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchTitle()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <button
+  class="btn btn-outline-secondary"
+  type="button"
+  (click)="searchTitle()"
+>
+  Export Data to CSV
+</button>
+  <div class="col-md-6">
+    <h4>Cars List</h4>
+    <!-- <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let tutorial of tutorials; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveTutorial(tutorial, i)"
+      >
+        {{ tutorial.id }}
+      </li>
+    </ul> -->
+
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr>
+       
+          <th scope="col">Vin</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Vehicle Age</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let car of cars; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveCar(car, i)">
+          <!-- <td>{{tutorial.id}}</td> -->
+          <td>{{car.vin}}</td>
+          <td>{{car.firstName}}</td>
+          <td>{{car.lastName}}</td>
+          <td>{{car.ageOfVehicle}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+
+    <!-- <button class="m-3 btn btn-sm btn-danger" (click)="removeAllTutorials()">
+      Remove All
+    </button> -->
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentCar">
+      <h4>Car</h4>
+      <div>
+        <label><strong>FirstName:</strong></label> {{ currentCar.firstName }}
+      </div>
+      <div>
+        <label><strong>LastName:</strong></label>
+        {{ currentCar.lastName }}
+      </div>
+      
+
+      <a class="badge badge-warning" routerLink="/cars/{{ currentCar.id }}">
+        Edit
+      </a>
+    </div>
+
+    <div *ngIf="!currentCar">
+      <br />
+      <p>Please click on a Car...</p>
+    </div>
+  </div>
+</div>
+
