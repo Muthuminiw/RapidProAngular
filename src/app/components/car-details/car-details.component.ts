@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CarService } from 'src/app/services/car.service';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { Car } from 'src/app/models/car.model';
 import { Apollo, gql } from 'apollo-angular';
@@ -44,7 +44,7 @@ export class CarDetailsComponent implements OnInit {
   message = '';
 
   constructor(
-    private carService: CarService,
+ 
     private route: ActivatedRoute,
     private router: Router,
     private apollo: Apollo) { }
@@ -119,4 +119,5 @@ export class CarDetailsComponent implements OnInit {
       console.log('Delete Failed', error);
     });
   }
+  
 }

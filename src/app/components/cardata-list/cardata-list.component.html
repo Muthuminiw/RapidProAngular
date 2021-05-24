@@ -1,0 +1,121 @@
+<div class="table-loading-shade" *ngIf="isProcessing">
+	<div *ngIf="isProcessing" class="spinner-border text-primary" style="width: 80px; height: 80px;">
+		<span class="sr-only">Loading...</span>
+	</div>
+</div>
+<div class="list row">
+	<div class="col-md-8">
+	  <div class="input-group mb-3">
+		<input
+		  type="text"
+		  class="form-control"
+		  placeholder="Search by Model"
+		  [(ngModel)]="carModel"
+		/>
+		<div class="input-group-append">
+		  <button
+			class="btn btn-outline-secondary"
+			type="button"
+			(click)="searchByModel()"
+		  >
+			Search
+		  </button>
+		</div>
+	  </div>
+	</div>
+
+<form>
+
+
+
+	<div class="table-container">
+		<table class="table table-sticky">
+			<thead>
+				<tr>
+
+					<th scope="col" #tdStudentId><span id="studentSchoolId">Student Id</span>
+						<!-- <i class="material-icons column-filtered" placement="bottom" container="body"
+							ngbTooltip="Filter by Student Id"
+							(click)="openTextFilterDialog(tdStudentId, 'studentSchoolId', 'Student Id')"
+							[ngClass]="getColumnFilterClass('studentSchoolId')">filter_list</i> -->
+					</th>
+					<th scope="col" #tdFirstName><span id="firstName">First Name</span></th>
+					<th scope="col" #tdLastName><span id="lastName">Last Name</span></th>
+					<th scope="col" #tdStudentEmail><span id="studentEmail">Student Email</span></th>
+					<th scope="col">
+						<!-- <i class="material-icons" placement="bottom" container="body" ngbTooltip="Add student" (click)="onAddStudentClick()">add_box</i> -->
+						<!-- <i class="material-icons" placement="bottom" container="body" ngbTooltip="Delete selected" (click)="onDeleteSelectedClick()">delete_sweep</i> -->
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+
+
+				<ng-container *ngFor="let car of cars">
+					<!-- The master row for each student. -->
+					<tr class="masterRow">
+
+						<td scope="row" id="studentSchoolId">
+							<span *ngIf="!isEditingCar(car.id)">{{car.vin}}</span>
+							<span *ngIf="isEditingCar(car.id)">
+								<input type="text" class="form-control" [formControl]="carVinFormControl" />
+								<div *ngIf="carVinFormControl.invalid && (carVinFormControl.dirty || carVinFormControl.touched)"
+									class="text-danger"><small>{{getErrorMessage(carVinFormControl)}}</small></div>
+							</span>
+						</td>
+						<td scope="row">
+							<span *ngIf="!isEditingCar(car.id)">{{car.firstName}}</span>
+							<span *ngIf="isEditingCar(car.id)">
+								<input type="text" class="form-control" [formControl]="firstNameFormControl" />
+								<div *ngIf="firstNameFormControl.invalid && (firstNameFormControl.dirty || firstNameFormControl.touched)"
+									class="text-danger"><small>{{getErrorMessage(firstNameFormControl)}}</small></div>
+							</span>
+						</td>
+						<td scope="row">
+							<span *ngIf="!isEditingCar(car.id)">{{car.lastName}}</span>
+							<span *ngIf="isEditingCar(car.id)">
+								<input type="text" class="form-control" [formControl]="lastNameFormControl" />
+								<div *ngIf="lastNameFormControl.invalid && (lastNameFormControl.dirty || lastNameFormControl.touched)"
+									class="text-danger"><small>{{getErrorMessage(lastNameFormControl)}}</small></div>
+							</span>
+						</td>
+						<td scope="row">
+							<span *ngIf="!isEditingCar(car.id)">{{car.email}}</span>
+							<span *ngIf="isEditingCar(car.id)">
+								<input type="text" class="form-control" [formControl]="emailFormControl" />
+								<div *ngIf="emailFormControl.invalid && (emailFormControl.dirty || emailFormControl.touched)"
+									class="text-danger"><small>{{getErrorMessage(emailFormControl)}}</small></div>
+							</span>
+						</td>
+						<td id="commandColumn" scope="row">
+							<span *ngIf="!isEditingCar(car.id)">
+								<i class="material-icons" placement="bottom" container="body" ngbTooltip="Edit student"
+									(click)="onEditClick(car)">edit</i>
+								<i class="material-icons" placement="bottom" container="body"
+									ngbTooltip="Delete student" (click)="onDeleteClick(car.id)">delete</i>
+							</span>
+							<span *ngIf="isEditingCar(car.id)">
+								<i *ngIf="isUpdateDisabled()" class="material-icons" placement="bottom" container="body"
+									ngbTooltip="Save" style="color:gray">done</i>
+								<i *ngIf="!isUpdateDisabled()" class="material-icons" placement="bottom"
+									container="body" ngbTooltip="Save" (click)="onUpdateClick()">done</i>
+								<i class="material-icons" placement="bottom" container="body" ngbTooltip="Cancel"
+									(click)="onCancelEditClick()">close</i>
+							</span>
+						</td>
+					</tr>
+
+				</ng-container>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="d-flex justify-content-between p-2">
+		<ngb-pagination [collectionSize]="totalCount" [(page)]="page" [pageSize]="pageSize"
+			(pageChange)="onPageChange()">
+		</ngb-pagination>
+
+
+	</div>
+
+</form>

@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 // import { Observer } from 'rxjs/Observer';
 import { Observable, Observer } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import * as socketIo from 'socket.io-client';
+import * as sc from 'socketcluster-client';
 
-import { Socket } from '../shared/interfaces';
 
+// const http = require('http');
+// const socketClusterClient = require('socketcluster-client');
 // declare var io : {
 //   connect(url: string): Socket;
 // };
@@ -14,16 +15,33 @@ import { Socket } from '../shared/interfaces';
 @Injectable()
 export class DataService {
 
-  socket?: Socket;
+  socket?: any;
+ 
   observer!: Observer<string>;
 
-  getQuotes() : Observable<string> {
-    this.socket = socketIo('http://localhost:4000');
+  // getQuotes() : Observable<string> {
+  //   this.socket = socketIo.io('http://localhost:4000');
 
-    this.socket.on('exportToCsv', (res) => {
-      console.log(res);
-      this.observer.next(res);
+  //   this.socket.on('exportToCsv', (res) => {
+  //     console.log("Message Received"+res);
+  //     this.observer.next(res);
+  //   });
+
+  //   return this.createObservable();
+  // }
+  getQuotes() : Observable<string> {
+    this.socket = sc.create({
+      hostname: 'localhost',
+      secure: true,
+      port: 8000,
+    
     });
+    // socketIo.io('http://localhost:4000');
+
+    // this.socket.on('exportToCsv', (res) => {
+    //   console.log("Message Received"+res);
+    //   this.observer.next(res);
+    // });
 
     return this.createObservable();
   }
