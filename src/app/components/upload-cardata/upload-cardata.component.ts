@@ -1,5 +1,6 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { UploadCarDataService } from 'src/app/services/upload-cardata.service';
 
@@ -14,10 +15,11 @@ export class UploadFilesComponent implements OnInit {
   selectedFiles?: FileList;
   currentFile?: File;
   progress = 0;
-  message = '';
+  succesMsg = 'Upload Sucssess';
+  errorMsg = 'Upload Failed';
 
   fileInfos?: Observable<any>;
-  constructor(private uploadService: UploadCarDataService) { }
+  constructor(private uploadService: UploadCarDataService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.fileInfos = this.uploadService.getFiles();
@@ -41,20 +43,19 @@ export class UploadFilesComponent implements OnInit {
             if (event.type === HttpEventType.UploadProgress) {
               this.progress = Math.round(100 * event.loaded / event.total);
             } else if (event instanceof HttpResponse) {
-              this.message = 'Upload Success';
-              this.progress = 0;
+             
+              this.toastr.success(this.succesMsg, "", {
+                timeOut: 2000,
+              });
               // this.fileInfos = this.uploadService.getFiles();
             }
           },
           (err: any) => {
             console.log(err);
             this.progress = 0;
-  
-            if (err.error && err.error.message) {
-              this.message = err.error.message;
-            } else {
-              this.message = 'Upload Failed!';
-            }
+            this.toastr.success(this.errorMsg, "", {
+              timeOut: 2000,
+            });
   
             this.currentFile = undefined;
           });
@@ -65,24 +66,3 @@ export class UploadFilesComponent implements OnInit {
   }
 }
 
-//   upload(): void {
-//     this.progress = 0;
-
-//     this.currentFile = this.selectedFiles.item(0);
-//     this.uploadService.upload(this.currentFile).subscribe(
-//       event => {
-//         if (event.type === HttpEventType.UploadProgress) {
-//           this.progress = Math.round(100 * event.loaded / event.total);
-//         } else if (event instanceof HttpResponse) {
-//           this.message = event.body.message;
-//           this.fileInfos = this.uploadService.getFiles();
-//         }
-//       },
-//       err => {
-//         this.progress = 0;
-//         this.message = 'Could not upload the file!';
-//         this.currentFile = undefined;
-//       });
-//     this.selectedFiles = undefined;
-//   }
-// }

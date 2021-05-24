@@ -91,9 +91,9 @@ export class CarDataListComponent implements OnInit {
      */
     ngOnInit(): void {
         console.log("Hits in here goes for toastr");
-        this.toastr.success('Submitted!!', "Updated Successfully..!!", {
-            timeOut: 2000,
-          });
+        // this.toastr.success('Submitted!!', "Updated Successfully..!!", {
+        //     timeOut: 2000,
+        //   });
         this.retrieveCars(this.page);
 
     }

@@ -31,9 +31,9 @@ export class SocketclientService implements OnInit {
     //   // Subscribe to a channel.
       let myChannel = this.socket.subscribe(this.channelName);
       for await (let data of myChannel) {
-        console.log("AAAAAAAAAAAAqqqqqqqqq" + data.status)
-        this.toastr.success('Submitted!!', data.status, {
-          timeOut: 2000,
+        console.log("from socket Client" + data.status)
+        this.toastr.success('Data Exported!!', data.status, {
+          timeOut: 10000,
         });
         console.log("service constructer read the msg from server a message");
       }

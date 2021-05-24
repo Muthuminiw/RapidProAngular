@@ -12,7 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from './services/data.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { CarDetailsComponent } from './components/car-details/car-details.component';
+
 import { CarsListComponent } from './components/cars-list/cars-list.component';
 import { UploadFilesComponent } from './components/upload-cardata/upload-cardata.component';
 import { DialogsModule } from './components/dialogs/dialogs.module';
@@ -23,7 +23,7 @@ import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
-    CarDetailsComponent,
+
     CarsListComponent,
     UploadFilesComponent,
     CarDataListComponent
